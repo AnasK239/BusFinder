@@ -1,0 +1,122 @@
+/* Base App Styling */
+.main-content {
+    -fx-background-color: #f4f7f6;
+}
+.sidebar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #eaeaea;
+    -fx-border-width: 0 1 0 0;
+}
+
+/* Typography */
+.page-title { -fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #1a2233; }
+.page-subtitle { -fx-font-size: 14px; -fx-text-fill: #6c757d; }
+.table-title { -fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1a2233; }
+
+/* Navigation Buttons */
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-alignment: BASELINE_LEFT;
+    -fx-padding: 12 20;
+    -fx-text-fill: #5b657a;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+}
+.nav-btn:hover {
+    -fx-background-color: #f0f4ff;
+    -fx-text-fill: #2b61ff;
+}
+.nav-btn-active {
+    -fx-background-color: #2b61ff;
+    -fx-text-fill: #ffffff;
+}
+
+/* Summary Cards */
+.summary-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.03), 10, 0, 0, 5);
+}
+.card-title { -fx-font-size: 12px; -fx-text-fill: #8a92a6; }
+.card-value { -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1a2233; }
+
+/* Card Icons */
+.card-icon {
+    -fx-pref-width: 45px; -fx-pref-height: 45px;
+    -fx-alignment: center; -fx-background-radius: 10px;
+    -fx-font-size: 20px; -fx-text-fill: white;
+}
+.icon-blue { -fx-background-color: #2b61ff; }
+.icon-green { -fx-background-color: #00c853; }
+.icon-purple { -fx-background-color: #aa00ff; }
+.icon-orange { -fx-background-color: #ff6d00; }
+
+/* Logo & Profile */
+.logo-icon { -fx-background-color: #2b61ff; -fx-text-fill: white; -fx-padding: 8 10; -fx-background-radius: 8px; }
+.logo-title { -fx-font-size: 16px; -fx-font-weight: bold; }
+.logo-subtitle { -fx-font-size: 11px; -fx-text-fill: #8a92a6; }
+.user-avatar { -fx-background-color: #f4f7f6; -fx-padding: 10; -fx-background-radius: 50%; -fx-font-weight: bold; }
+.user-name { -fx-font-size: 13px; -fx-font-weight: bold; }
+.user-email { -fx-font-size: 11px; -fx-text-fill: #8a92a6; }
+
+/* Table Styling */
+.table-container {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.03), 10, 0, 0, 5);
+}
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.table-view .column-header-background { -fx-background-color: transparent; }
+.table-view .column-header { -fx-background-color: transparent; -fx-border-color: transparent; }
+.table-view .column-header .label { -fx-font-weight: bold; -fx-text-fill: #1a2233; }
+
+/* --- NEW: Form Styles for Client Management --- */
+.form-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #5b657a;
+}
+
+.custom-text-field {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #e9ecef;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px;
+    -fx-text-fill: #1a2233;
+    -fx-font-size: 14px;
+}
+
+.custom-text-field:focused {
+    -fx-border-color: #2b61ff;
+    -fx-background-color: #ffffff;
+}
+
+.primary-btn {
+    -fx-background-color: #2b61ff;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 25px;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+}
+
+.primary-btn:hover {
+    -fx-background-color: #1e4bdb;
+}
+
+/* Optional styling for the dummy action icons */
+.action-icon {
+    -fx-text-fill: #8a92a6;
+    -fx-cursor: hand;
+}
+.action-icon-delete {
+    -fx-text-fill: #dc3545;
+    -fx-cursor: hand;
+}
