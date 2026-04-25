@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox prefHeight="768.0" prefWidth="1200.0" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.busfinder.controllers.ClientProfileController">
+
+    <VBox prefHeight="768.0" prefWidth="313.0" styleClass="sidebar" HBox.hgrow="NEVER">
+
+        <HBox alignment="CENTER_LEFT" prefHeight="101.0" prefWidth="226.0" spacing="15.0" styleClass="sidebar-header">
+            <padding>
+                <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
+            </padding>
+            <Label styleClass="logo-icon" text="🚌" />
+            <VBox alignment="CENTER_LEFT">
+                <Label styleClass="logo-title" text="TripManager" />
+                <Label styleClass="logo-subtitle" text="Client Portal" />
+            </VBox>
+        </HBox>
+
+        <VBox prefHeight="590.0" prefWidth="274.0" spacing="5.0" VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets left="15.0" right="15.0" />
+            </padding>
+            <Button maxWidth="Infinity" styleClass="nav-btn, nav-btn-active" text="👤   My Profile" />
+            <Button maxWidth="Infinity" styleClass="nav-btn" text="🚌   Book a Trip" />
+            <Button maxWidth="Infinity" styleClass="nav-btn" text="📅   My Reservations" />
+            <Button maxWidth="Infinity" styleClass="nav-btn" text="⭐   Loyalty Rewards" />
+            <Button maxWidth="Infinity" styleClass="nav-btn" text="💬   Feedback" />
+        </VBox>
+
+        <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="user-profile">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            <Label fx:id="sidebarAvatar" prefHeight="37.0" prefWidth="43.0" styleClass="user-avatar" text="CL" />
+            <VBox alignment="CENTER_LEFT">
+                <Label fx:id="sidebarName" prefHeight="19.0" prefWidth="88.0" styleClass="user-name" text="Loading..." />
+                <Label fx:id="sideBarEmail" styleClass="user-email" text="Client Account" />
+            </VBox>
+            <Button mnemonicParsing="false" onAction="#handleLogout" prefHeight="25.0" prefWidth="57.0" styleClass="main-content" text="Logout">
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
+        </HBox>
+    </VBox>
+
+    <VBox prefHeight="768.0" prefWidth="996.0" spacing="20.0" styleClass="main-content" HBox.hgrow="ALWAYS">
+        <padding>
+            <Insets bottom="30.0" left="40.0" right="40.0" top="40.0" />
+        </padding>
+
+        <VBox spacing="5.0" VBox.vgrow="NEVER">
+            <Label styleClass="page-title" text="My Profile" />
+            <Label styleClass="page-subtitle" text="Manage your personal information and account details" />
+        </VBox>
+
+        <HBox spacing="20.0" VBox.vgrow="NEVER">
+
+            <VBox spacing="15.0" styleClass="table-container" HBox.hgrow="ALWAYS">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                </padding>
+                <Label styleClass="table-title" text="Personal Information" />
+
+                <HBox spacing="15.0">
+                    <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                        <Label styleClass="form-label" text="First Name" />
+                        <TextField fx:id="profileFirstName" editable="false" styleClass="custom-text-field" />
+                    </VBox>
+                    <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                        <Label styleClass="form-label" text="Last Name" />
+                        <TextField fx:id="profileLastName" editable="false" styleClass="custom-text-field" />
+                    </VBox>
+                </HBox>
+
+                <HBox spacing="15.0">
+                    <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                        <Label styleClass="form-label" text="Email Address" />
+                        <TextField fx:id="profileEmail" editable="false" styleClass="custom-text-field" />
+                    </VBox>
+                    <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                        <Label styleClass="form-label" text="Phone Number" />
+                        <TextField fx:id="profilePhone" editable="false" styleClass="custom-text-field" />
+                    </VBox>
+                </HBox>
+
+                <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                    <padding>
+                        <Insets top="10.0" />
+                    </padding>
+                    <Button mnemonicParsing="false" onAction="#handleEditProfile" prefHeight="35.0" prefWidth="120.0" styleClass="primary-btn" text="✎ Edit Profile" />
+                </HBox>
+            </VBox>
+
+            <VBox alignment="CENTER" prefWidth="300.0" spacing="10.0" styleClass="table-container" HBox.hgrow="NEVER">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                </padding>
+                <Label styleClass="table-title" text="Loyalty Status" />
+                <Label text="🏆" textFill="#f1c40f">
+                    <font>
+                        <Font size="48.0" />
+                    </font>
+                </Label>
+
+                <HBox alignment="CENTER" spacing="5.0">
+                    <Label fx:id="profileLoyalty" text="0" textFill="#2d3436">
+                        <font>
+                            <Font name="System Bold" size="36.0" />
+                        </font>
+                    </Label>
+                    <Label text="Pts" textFill="#636e72">
+                        <font>
+                            <Font size="20.0" />
+                        </font>
+                        <padding>
+                            <Insets top="10.0" />
+                        </padding>
+                    </Label>
+                </HBox>
+
+                <Label styleClass="page-subtitle" text="Keep booking to earn free trips!" />
+            </VBox>
+
+        </HBox>
+
+        <VBox spacing="15.0" styleClass="table-container" VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            <Label styleClass="table-title" text="Account &amp; Security" />
+            <Label styleClass="page-subtitle" text="These are the credentials you use to log into TripManager." />
+
+            <HBox alignment="BOTTOM_LEFT" spacing="20.0">
+                <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                    <Label styleClass="form-label" text="Username" />
+                    <TextField fx:id="profileUsername" editable="false" styleClass="custom-text-field" />
+                </VBox>
+                <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                    <Label styleClass="form-label" text="Password" />
+                    <PasswordField editable="false" styleClass="custom-text-field" text="********" />
+                </VBox>
+                <VBox alignment="BOTTOM_RIGHT" HBox.hgrow="NEVER">
+                    <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" styleClass="primary-btn" text="Change Password" />
+                </VBox>
+            </HBox>
+        </VBox>
+
+    </VBox>
+</HBox>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="768.0" prefWidth="1200.0" spacing="20.0" styleClass="main-content" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.busfinder.controllers.RegisterController">
+
+    <VBox maxWidth="600.0" spacing="25.0" styleClass="table-container">
+        <padding>
+            <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+        </padding>
+
+        <VBox alignment="CENTER" spacing="5.0">
+            <Label styleClass="logo-icon" style="-fx-font-size: 48px;" text="🚌" />
+            <Label styleClass="page-title" text="Create an Account" />
+            <Label styleClass="page-subtitle" text="Join TripManager to start booking your journeys" />
+        </VBox>
+
+        <VBox spacing="15.0">
+            <HBox spacing="15.0">
+                <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                    <Label styleClass="form-label" text="First Name *" />
+                    <TextField fx:id="firstNameField" promptText="Enter first name" styleClass="custom-text-field" />
+                </VBox>
+                <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                    <Label styleClass="form-label" text="Last Name *" />
+                    <TextField fx:id="lastNameField" promptText="Enter last name" styleClass="custom-text-field" />
+                </VBox>
+            </HBox>
+
+            <HBox spacing="15.0">
+                <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                    <Label styleClass="form-label" text="Email Address *" />
+                    <TextField fx:id="emailField" promptText="Enter email address" styleClass="custom-text-field" />
+                </VBox>
+                <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                    <Label styleClass="form-label" text="Phone Number" />
+                    <TextField fx:id="phoneField" promptText="Enter phone number" styleClass="custom-text-field" />
+                </VBox>
+            </HBox>
+
+            <VBox spacing="6.0">
+                <Label styleClass="form-label" text="Username *" />
+                <TextField fx:id="usernameField" promptText="Choose a username" styleClass="custom-text-field" />
+            </VBox>
+
+            <HBox spacing="15.0">
+                <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                    <Label styleClass="form-label" text="Password *" />
+                    <PasswordField fx:id="passwordField" promptText="Create password" styleClass="custom-text-field" />
+                </VBox>
+                <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                    <Label styleClass="form-label" text="Confirm Password *" />
+                    <PasswordField fx:id="confirmPasswordField" promptText="Confirm password" styleClass="custom-text-field" />
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <VBox alignment="CENTER">
+            <Label fx:id="statusLabel" textFill="#e74c3c" visible="false" />
+        </VBox>
+
+        <VBox alignment="CENTER" spacing="15.0">
+            <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#handleRegister" prefHeight="40.0" styleClass="primary-btn" text="Register Account">
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
+
+            <Button mnemonicParsing="false" onAction="#handleBackToLogin" style="-fx-background-color: transparent; -fx-text-fill: #0984e3; -fx-font-weight: bold;" text="Already have an account? Log in here">
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
+        </VBox>
+
+    </VBox>
+</VBox>

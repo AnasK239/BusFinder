@@ -12,7 +12,7 @@
 
 <HBox prefHeight="768.0" prefWidth="1200.0" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.busfinder.controllers.ClientManagementController">
 
-    <VBox prefHeight="768.0" prefWidth="313.0" styleClass="sidebar">
+    <VBox prefHeight="768.0" prefWidth="313.0" styleClass="sidebar" HBox.hgrow="ALWAYS">
 
         <HBox alignment="CENTER_LEFT" prefHeight="101.0" prefWidth="226.0" spacing="15.0" styleClass="sidebar-header">
             <padding>
@@ -46,63 +46,27 @@
                 <Label prefHeight="19.0" prefWidth="88.0" styleClass="user-name" text="Admin " />
                 <Label prefHeight="16.0" prefWidth="98.0" styleClass="user-email" text="admin@trip.com" />
             </VBox>
-         <Button mnemonicParsing="false" onAction="#handleLogout" prefHeight="25.0" prefWidth="57.0" styleClass="main-content" text="Logout">
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </Button>
+            <Button mnemonicParsing="false" onAction="#handleLogout" prefHeight="25.0" prefWidth="57.0" styleClass="main-content" text="Logout">
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
         </HBox>
     </VBox>
 
-    <VBox prefHeight="768.0" prefWidth="996.0" spacing="30.0" styleClass="main-content" HBox.hgrow="ALWAYS">
+    <VBox prefHeight="768.0" prefWidth="996.0" spacing="15.0" styleClass="main-content" HBox.hgrow="ALWAYS">
         <padding>
-            <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+            <Insets bottom="20.0" left="30.0" right="30.0" top="30.0" />
         </padding>
 
-        <VBox spacing="5.0">
+        <VBox spacing="5.0" VBox.vgrow="NEVER">
             <Label styleClass="page-title" text="Client Management" />
             <Label styleClass="page-subtitle" text="Add and manage your clients" />
         </VBox>
 
-        <VBox spacing="20.0" styleClass="table-container">
+        <VBox spacing="10.0" styleClass="table-container" VBox.vgrow="ALWAYS">
             <padding>
-                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-            </padding>
-
-            <Label styleClass="table-title" text="Add New Client" />
-
-            <VBox spacing="15.0">
-                <HBox spacing="20.0">
-                    <VBox spacing="8.0" HBox.hgrow="ALWAYS">
-                        <Label styleClass="form-label" text="First Name" />
-                        <TextField fx:id="firstNameField" promptText="Enter first name" styleClass="custom-text-field" />
-                    </VBox>
-                    <VBox spacing="8.0" HBox.hgrow="ALWAYS">
-                        <Label styleClass="form-label" text="Last Name" />
-                        <TextField fx:id="lastNameField" promptText="Enter last name" styleClass="custom-text-field" />
-                    </VBox>
-                </HBox>
-
-                <HBox spacing="20.0">
-                    <VBox spacing="8.0" HBox.hgrow="ALWAYS">
-                        <Label styleClass="form-label" text="Email" />
-                        <TextField fx:id="emailField" promptText="Enter email address" styleClass="custom-text-field" />
-                    </VBox>
-                    <VBox spacing="8.0" HBox.hgrow="ALWAYS">
-                        <Label styleClass="form-label" text="Phone Number" />
-                        <TextField fx:id="phoneField" promptText="Enter phone number" styleClass="custom-text-field" />
-                    </VBox>
-                </HBox>
-            </VBox>
-
-            <HBox alignment="CENTER_RIGHT">
-                <Button mnemonicParsing="false" onAction="#handleAddClient" styleClass="primary-btn" text="+ Add Client" />
-            </HBox>
-        </VBox>
-
-        <VBox spacing="15.0" styleClass="table-container" VBox.vgrow="ALWAYS">
-            <padding>
-                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
             </padding>
             <Label styleClass="table-title" text="Clients List" />
 
@@ -113,12 +77,74 @@
                     <TableColumn fx:id="colEmail" prefWidth="250.0" text="Email" />
                     <TableColumn fx:id="colPhone" prefWidth="150.0" text="Phone" />
                     <TableColumn fx:id="colLoyalty" prefWidth="120.0" text="Loyalty Points" />
-                    <TableColumn fx:id="colActions" prefWidth="100.0" text="Actions" />
                 </columns>
                 <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                 </columnResizePolicy>
             </TableView>
         </VBox>
+
+        <VBox spacing="10.0" styleClass="table-container" VBox.vgrow="NEVER">
+            <padding>
+                <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+            </padding>
+
+            <HBox alignment="BOTTOM_LEFT" spacing="10.0">
+                <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                    <Label styleClass="form-label" text="First Name *" />
+                    <TextField fx:id="firstNameField" promptText="First name" styleClass="custom-text-field" />
+                </VBox>
+                <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                    <Label styleClass="form-label" text="Last Name *" />
+                    <TextField fx:id="lastNameField" promptText="Last name" styleClass="custom-text-field" />
+                </VBox>
+                <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                    <Label styleClass="form-label" text="Email" />
+                    <TextField fx:id="emailField" promptText="Email address" styleClass="custom-text-field" />
+                </VBox>
+                <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                    <Label styleClass="form-label" text="Phone Number *" />
+                    <TextField fx:id="phoneField" promptText="Phone number" styleClass="custom-text-field" />
+                </VBox>
+                <VBox prefWidth="90.0" spacing="6.0" HBox.hgrow="ALWAYS">
+                    <Label styleClass="form-label" text="Loyalty" />
+                    <TextField fx:id="loyaltyField" promptText="Points" styleClass="custom-text-field" />
+                </VBox>
+                <VBox alignment="BOTTOM_RIGHT" HBox.hgrow="NEVER">
+                    <Button mnemonicParsing="false" onAction="#handleAddClient" prefHeight="40.0" prefWidth="140.0" styleClass="primary-btn" text="+ Add Client" />
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <VBox spacing="15.0" styleClass="table-container" VBox.vgrow="NEVER">
+            <padding>
+                <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+            </padding>
+
+            <HBox alignment="BOTTOM_LEFT" spacing="15.0">
+                <VBox prefWidth="120.0" spacing="6.0" HBox.hgrow="NEVER">
+                    <Label styleClass="form-label" text="Target Client ID *" />
+                    <TextField fx:id="ClientIdField" promptText="Enter ID" styleClass="custom-text-field" />
+                </VBox>
+                <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                    <Label styleClass="form-label" text="New Email" />
+                    <TextField fx:id="updateEmailField" promptText="Update email address" styleClass="custom-text-field" />
+                </VBox>
+                <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                    <Label styleClass="form-label" text="New Phone" />
+                    <TextField fx:id="updatePhoneField" promptText="Update phone number" styleClass="custom-text-field" />
+                </VBox>
+                <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                    <Label styleClass="form-label" text="New Loyalty Points" />
+                    <TextField fx:id="updateLoyaltyField" promptText="Update points" styleClass="custom-text-field" />
+                </VBox>
+            </HBox>
+
+            <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                <Button mnemonicParsing="false" onAction="#handleUpdateClient" prefHeight="40.0" prefWidth="187.0" styleClass="primary-btn" text="✎ Update Client" />
+                <Button mnemonicParsing="false" onAction="#handleRemoveClient" prefHeight="40.0" prefWidth="187.0" styleClass="primary-btn" text="- Remove Client" />
+            </HBox>
+        </VBox>
+
     </VBox>
 </HBox>

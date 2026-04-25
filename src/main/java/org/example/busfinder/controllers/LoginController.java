@@ -9,27 +9,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-// ... your other imports ...
 
 
 
 public class LoginController {
 
-    @FXML
-    public Button createAccountButton;
-    @FXML
-    public TextField usernameField;
-    @FXML
-    public PasswordField passwordField;
-    @FXML
-    public Label errorLabel;
-    @FXML
-    public Button loginButton;
+    @FXML private Button createAccountButton;
+    @FXML private TextField usernameField;
+    @FXML private PasswordField passwordField;
+    @FXML private Label errorLabel;
+    @FXML private Button loginButton;
 
 
     @FXML
@@ -38,7 +31,7 @@ public class LoginController {
         String password = passwordField.getText();
 
         if (username.isEmpty() || password.isEmpty()) {
-            errorLabel.setText("Please enter both username and password.");
+            errorLabel.setText("Please enter both username/email and password.");
             errorLabel.setVisible(true);
             return;
         }
@@ -48,21 +41,39 @@ public class LoginController {
         errorLabel.setVisible(false);
 
         Thread dbThread = new Thread(() -> {
-            String query = "SELECT Role FROM AppUser WHERE Username = ? AND PasswordHash = ?";
+            String query = "SELECT a.Role, a.Client_ID " +
+                    "FROM AppUser a " +
+                    "LEFT JOIN Client c ON a.Client_ID = c.Client_ID " +
+                    "WHERE (a.Username = ? OR c.Email = ?) AND a.PasswordHash = ?";
+
             try (Connection conn = DatabaseHelper.getConnection();
                  PreparedStatement pstmt = conn.prepareStatement(query)) {
 
                 pstmt.setString(1, username);
-                pstmt.setString(2, password);
+                pstmt.setString(2, username);
+                pstmt.setString(3, password);
+
                 ResultSet rs = pstmt.executeQuery();
 
                 if (rs.next()) {
                     String userRole = rs.getString("Role");
+                    int clientId = rs.getInt("Client_ID");
+                    String newWindow;
 
+                    if(userRole.equals("Admin")) {
+                        newWindow = "/org/example/busfinder/Admin-View.fxml";
+                    }
+                    else if(userRole.equals("Client")) {
+                        newWindow = "/org/example/busfinder/Client-View.fxml";
+                        Util.UserSession.setCurrentClientId(clientId);
+                    } else {
+                        newWindow = "";
+                    }
                     Platform.runLater(() -> {
                         System.out.println("Login Successful! Welcome, " + userRole);
                         SceneSwitcher sceneSwitcher = new SceneSwitcher();
-                        sceneSwitcher.switchPage(event ,"/org/example/busfinder/Admin-View.fxml");
+
+                        sceneSwitcher.switchPage(event ,newWindow);
                         loginButton.setDisable(false);
                         loginButton.setText("Login");
                     });
@@ -91,8 +102,15 @@ public class LoginController {
         dbThread.start();
     }
 
-
+    @FXML
     public void handleCreateAccount(ActionEvent actionEvent) {
+        SceneSwitcher sceneSwitcher = new SceneSwitcher();
+        sceneSwitcher.switchPage(actionEvent , "/org/example/busfinder/CreateAccount-View.fxml");
+    }
 
+    @FXML
+    public void handleForgotPassword(ActionEvent actionEvent) {
+        SceneSwitcher sceneSwitcher = new SceneSwitcher();
+        sceneSwitcher.switchPage(actionEvent , "/org/example/busfinder/ForgotPassword-View.fxml");
     }
 }

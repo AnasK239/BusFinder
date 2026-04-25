@@ -11,8 +11,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-
 import org.example.busfinder.datamodels.TripRow;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,17 +19,16 @@ import java.sql.SQLException;
 
 public class AdminDashboardController {
 
-    // 1. Notice the <TripRow, String> types added here! This is required.
-    @FXML public TableView<TripRow> tripsTable;
-    @FXML public TableColumn<TripRow, String> colId;
-    @FXML public TableColumn<TripRow, String> colRoute;
-    @FXML public TableColumn<TripRow, String> colTime;
-    @FXML public TableColumn<TripRow, String> colStatus;
-    @FXML public TableColumn<TripRow, String> colSeats;
-    public Label revenueLabel;
-    public Label reservationsLabel;
-    public Label activeTripsLabel;
-    public Label totalClientsLabel;
+    @FXML private TableView<TripRow> tripsTable;
+    @FXML private TableColumn<TripRow, String> colId;
+    @FXML private TableColumn<TripRow, String> colRoute;
+    @FXML private TableColumn<TripRow, String> colTime;
+    @FXML private TableColumn<TripRow, String> colStatus;
+    @FXML private TableColumn<TripRow, String> colSeats;
+    @FXML private Label revenueLabel;
+    @FXML private Label reservationsLabel;
+    @FXML private Label activeTripsLabel;
+    @FXML private Label totalClientsLabel;
 
 
     @FXML
@@ -51,6 +48,7 @@ public class AdminDashboardController {
     public void handleLogout(ActionEvent event) {
         SceneSwitcher sceneSwitcher = new SceneSwitcher();
         sceneSwitcher.switchPage(event,"/org/example/busfinder/Login-View.fxml");
+        Util.UserSession.cleanUserSession();
     }
 
     @FXML
@@ -90,6 +88,7 @@ public class AdminDashboardController {
         });
         statsThread.start();
     }
+
     private void loadTableData() {
         // Run database query on a background thread to prevent the UI from freezing
         Thread dbThread = new Thread(() -> {
