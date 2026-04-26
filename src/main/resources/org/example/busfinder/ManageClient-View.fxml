@@ -31,7 +31,7 @@
             </padding>
             <Button maxWidth="Infinity" onAction="#handleDashboard" styleClass="nav-btn" text="⊞   Dashboard" />
             <Button maxWidth="Infinity" styleClass="nav-btn, nav-btn-active" text="👥   Clients" />
-            <Button maxWidth="Infinity" styleClass="nav-btn" text="🚌   Trips" />
+            <Button maxWidth="Infinity" onAction="#handleAddTrip" styleClass="nav-btn" text="🚌   Trips" />
             <Button maxWidth="Infinity" styleClass="nav-btn" text="📅   Reservations" />
             <Button maxWidth="Infinity" styleClass="nav-btn" text="🔍   View Trips" />
             <Button maxWidth="Infinity" styleClass="nav-btn" text="💬   Feedback" />

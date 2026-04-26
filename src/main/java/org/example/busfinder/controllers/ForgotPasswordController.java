@@ -33,7 +33,6 @@ public class ForgotPasswordController {
         String newPassword = newPasswordField.getText();
         String confirmPassword = confirmPasswordField.getText();
 
-        // 1. Basic Validation
         if (username.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
             showStatus("Please fill in all required fields (*)", true);
             return;
@@ -41,15 +40,13 @@ public class ForgotPasswordController {
 
         if (!newPassword.equals(confirmPassword)) {
             showStatus("Passwords do not match!", true);
-            return; // Exit before disabling the button
+            return;
         }
 
-        // Disable button visually while loading
         updateButton.setDisable(true);
         updateButton.setText("Updating...");
         showStatus("Updating password...", false);
 
-        // 2. Database Update Thread
         Thread updateThread = new Thread(() -> {
             String query = "UPDATE AppUser SET PasswordHash = ? WHERE Username = ?";
 
@@ -63,7 +60,6 @@ public class ForgotPasswordController {
 
                 Platform.runLater(() -> {
                     if (rowsAffected > 0) {
-                        // Success!
                         showStatus("Password updated successfully! You can now log in.", false);
                         usernameField.clear();
                         newPasswordField.clear();
@@ -71,11 +67,8 @@ public class ForgotPasswordController {
                         SceneSwitcher sceneSwitcher = new SceneSwitcher();
                         sceneSwitcher.switchPage(event, "/org/example/busfinder/Login-View.fxml");
                     } else {
-                        // Fail
                         showStatus("Username not found. Please try again.", true);
                     }
-
-                    // FIXED: Always re-enable the button when finished!
                     updateButton.setDisable(false);
                     updateButton.setText("Update Password");
                 });

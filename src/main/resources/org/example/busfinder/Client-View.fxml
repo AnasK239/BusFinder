@@ -30,7 +30,7 @@
                 <Insets left="15.0" right="15.0" />
             </padding>
             <Button maxWidth="Infinity" styleClass="nav-btn, nav-btn-active" text="👤   My Profile" />
-            <Button maxWidth="Infinity" styleClass="nav-btn" text="🚌   Book a Trip" />
+            <Button maxWidth="Infinity" onAction="#handleBookTrip" styleClass="nav-btn" text="🚌   Book a Trip" />
             <Button maxWidth="Infinity" styleClass="nav-btn" text="📅   My Reservations" />
             <Button maxWidth="Infinity" styleClass="nav-btn" text="⭐   Loyalty Rewards" />
             <Button maxWidth="Infinity" styleClass="nav-btn" text="💬   Feedback" />
@@ -97,7 +97,6 @@
                     <padding>
                         <Insets top="10.0" />
                     </padding>
-                    <Button mnemonicParsing="false" onAction="#handleEditProfile" prefHeight="35.0" prefWidth="120.0" styleClass="primary-btn" text="✎ Edit Profile" />
                 </HBox>
             </VBox>
 
@@ -149,9 +148,7 @@
                     <Label styleClass="form-label" text="Password" />
                     <PasswordField editable="false" styleClass="custom-text-field" text="********" />
                 </VBox>
-                <VBox alignment="BOTTOM_RIGHT" HBox.hgrow="NEVER">
-                    <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" styleClass="primary-btn" text="Change Password" />
-                </VBox>
+                <VBox alignment="BOTTOM_RIGHT" HBox.hgrow="NEVER" />
             </HBox>
         </VBox>
 

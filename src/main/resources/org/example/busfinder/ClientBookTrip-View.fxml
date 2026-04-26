@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox prefHeight="768.0" prefWidth="1200.0" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.busfinder.controllers.ClientBookTripController">
+
+    <VBox prefHeight="768.0" prefWidth="313.0" styleClass="sidebar" HBox.hgrow="NEVER">
+
+        <HBox alignment="CENTER_LEFT" prefHeight="101.0" prefWidth="226.0" spacing="15.0" styleClass="sidebar-header">
+            <padding>
+                <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
+            </padding>
+            <Label styleClass="logo-icon" text="🚌" />
+            <VBox alignment="CENTER_LEFT">
+                <Label styleClass="logo-title" text="TripManager" />
+                <Label styleClass="logo-subtitle" text="Client Portal" />
+            </VBox>
+        </HBox>
+
+        <VBox prefHeight="590.0" prefWidth="274.0" spacing="5.0" VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets left="15.0" right="15.0" />
+            </padding>
+            <Button maxWidth="Infinity" onAction="#handleProfile" styleClass="nav-btn" text="👤   My Profile" />
+            <Button maxWidth="Infinity" styleClass="nav-btn, nav-btn-active" text="🚌   Book a Trip" />
+            <Button maxWidth="Infinity" styleClass="nav-btn" text="📅   My Reservations" />
+            <Button maxWidth="Infinity" styleClass="nav-btn" text="⭐   Loyalty Rewards" />
+            <Button maxWidth="Infinity" styleClass="nav-btn" text="💬   Feedback" />
+        </VBox>
+
+        <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="user-profile">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            <Label fx:id="sidebarAvatar" prefHeight="37.0" prefWidth="43.0" styleClass="user-avatar" text="CL" />
+            <VBox alignment="CENTER_LEFT">
+                <Label fx:id="sidebarName" prefHeight="19.0" prefWidth="88.0" styleClass="user-name" text="Loading..." />
+                <Label styleClass="user-email" text="Client Account" />
+            </VBox>
+            <Button mnemonicParsing="false" onAction="#handleLogout" prefHeight="25.0" prefWidth="57.0" styleClass="main-content" text="Logout">
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
+        </HBox>
+    </VBox>
+
+    <VBox prefHeight="768.0" prefWidth="996.0" spacing="20.0" styleClass="main-content" HBox.hgrow="ALWAYS">
+        <padding>
+            <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+        </padding>
+
+        <VBox spacing="5.0" VBox.vgrow="NEVER">
+            <Label styleClass="page-title" text="View Available Trips" />
+            <Label styleClass="page-subtitle" text="Search and explore available trips" />
+        </VBox>
+
+        <VBox spacing="10.0" styleClass="table-container" VBox.vgrow="NEVER">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            <Label styleClass="table-title" text="Search Trips" />
+
+            <HBox alignment="BOTTOM_LEFT" spacing="15.0">
+                <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                    <Label styleClass="form-label" text="From City" />
+                    <ComboBox fx:id="fromCityCombo" maxWidth="Infinity" promptText="Select From City" styleClass="custom-text-field" />
+                </VBox>
+                <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                    <Label styleClass="form-label" text="To City" />
+                    <ComboBox fx:id="toCityCombo" maxWidth="Infinity" promptText="Select To City" styleClass="custom-text-field" />
+                </VBox>
+                <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                    <Label styleClass="form-label" text="Date" />
+                    <DatePicker fx:id="searchDatePicker" maxWidth="Infinity" promptText="dd/mm/yyyy" styleClass="custom-text-field" />
+                </VBox>
+                <VBox alignment="BOTTOM_RIGHT" HBox.hgrow="NEVER">
+                    <Button mnemonicParsing="false" onAction="#handleSearch" prefHeight="40.0" prefWidth="148.0" styleClass="primary-btn" text="🔍 Search">
+                        <cursor>
+                            <Cursor fx:constant="HAND" />
+                        </cursor>
+                    </Button>
+                </VBox>
+            </HBox>
+        </VBox>
+      <Label fx:id="statusLabel" styleClass="table-title" />
+
+        <VBox spacing="10.0" VBox.vgrow="ALWAYS">
+            <Label styleClass="table-title" text="Available Trips" />
+
+            <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: #f4f6f9;" VBox.vgrow="ALWAYS">
+
+                <VBox fx:id="tripsContainer" spacing="15.0">
+                    <padding>
+                        <Insets bottom="10.0" left="5.0" right="15.0" top="5.0" />
+                    </padding>
+
+                    <VBox spacing="15.0" styleClass="table-container">
+                        <padding>
+                            <Insets bottom="20.0" left="25.0" right="25.0" top="20.0" />
+                        </padding>
+
+                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                            <Label text="Cairo → Alexandria" textFill="#2d3436">
+                                <font>
+                                    <Font name="System Bold" size="20.0" />
+                                </font>
+                            </Label>
+                            <Label style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 3 12 3 12; -fx-background-radius: 12;" text="Scheduled" />
+                        </HBox>
+
+                        <HBox alignment="CENTER_LEFT" spacing="25.0">
+                            <Label text="📅 2026-04-25" textFill="#636e72">
+                                <font>
+                                    <Font size="14.0" />
+                                </font>
+                            </Label>
+                            <Label text="🕒 08:00 - 11:00" textFill="#636e72">
+                                <font>
+                                    <Font size="14.0" />
+                                </font>
+                            </Label>
+                            <Label text="👥 28 seats left" textFill="#636e72">
+                                <font>
+                                    <Font size="14.0" />
+                                </font>
+                            </Label>
+
+                            <Region HBox.hgrow="ALWAYS" />
+
+                            <Label text="\$150" textFill="#2d3436">
+                                <font>
+                                    <Font name="System Bold" size="22.0" />
+                                </font>
+                            </Label>
+                            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="155.0" styleClass="primary-btn" text="→ Book Now">
+                                <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                </cursor>
+                            </Button>
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </ScrollPane>
+        </VBox>
+
+    </VBox>
+</HBox>

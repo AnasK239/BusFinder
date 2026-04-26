@@ -137,37 +137,54 @@ public class ClientManagementController {
             String newPhone = updatePhoneField.getText();
             String newLoyalty = updateLoyaltyField.getText();
 
+            String clientQuery1 = "UPDATE Client SET Email = ? WHERE Client_ID = ?";
+            String clientQuery2 = "UPDATE Client SET Loyalty_points = ? WHERE Client_ID = ?";
+
             try (Connection conn = DatabaseHelper.getConnection()) {
                 conn.setAutoCommit(false); // Start transaction
 
-                // 1. Update Email if provided
+                // Update Email if provided
                 if (newEmail != null && !newEmail.isEmpty()) {
-                    try (PreparedStatement ps = conn.prepareStatement("UPDATE Client SET Email = ? WHERE Client_ID = ?")) {
+                    try (PreparedStatement ps = conn.prepareStatement(clientQuery1)) {
                         ps.setString(1, newEmail);
                         ps.setInt(2, clientId);
                         ps.executeUpdate();
                     }
                 }
 
-                // 2. Update Loyalty Points if provided
+                // Update Loyalty Points if provided
                 if (newLoyalty != null && !newLoyalty.isEmpty()) {
-                    try (PreparedStatement ps = conn.prepareStatement("UPDATE Client SET Loyalty_points = ? WHERE Client_ID = ?")) {
+                    try (PreparedStatement ps = conn.prepareStatement(clientQuery2)) {
                         ps.setInt(1, Integer.parseInt(newLoyalty));
                         ps.setInt(2, clientId);
                         ps.executeUpdate();
                     }
                 }
 
-                // 3. Update Phone if provided
+                // Update Phone if provided
                 if (newPhone != null && !newPhone.isEmpty()) {
-                    try (PreparedStatement ps = conn.prepareStatement("UPDATE Client_phone_numbers SET Phone_number = ? WHERE Client_ID = ?")) {
-                        ps.setString(1, newPhone);
-                        ps.setInt(2, clientId);
-                        ps.executeUpdate();
+                    String updatePhoneSql = "UPDATE Client_phone_numbers SET Phone_number = ? WHERE Client_ID = ?";
+                    try (PreparedStatement psUpdate = conn.prepareStatement(updatePhoneSql)) {
+                        psUpdate.setString(1, newPhone);
+                        psUpdate.setInt(2, clientId);
+
+                        // Check how many rows were actually updated
+                        int rowsAffected = psUpdate.executeUpdate();
+
+                        // If 0 rows were updated, the client doesn't have a phone record yet
+                        // We must INSERT a new row instead.
+                        if (rowsAffected == 0) {
+                            String insertPhoneSql = "INSERT INTO Client_phone_numbers (Client_ID, Phone_number) VALUES (?, ?)";
+                            try (PreparedStatement psInsert = conn.prepareStatement(insertPhoneSql)) {
+                                psInsert.setInt(1, clientId);
+                                psInsert.setString(2, newPhone);
+                                psInsert.executeUpdate();
+                            }
+                        }
                     }
                 }
 
-                conn.commit(); // Save changes
+                conn.commit();
 
                 // Clear fields and refresh table
                 Platform.runLater(() -> {
@@ -194,28 +211,21 @@ public class ClientManagementController {
                 conn.setAutoCommit(false); // Start transaction
                 int clientId = Integer.parseInt(clientIdStr);
 
-                // Assuming you fixed the DB Cascade constraints earlier,
-                // but just in case, we'll manually delete phone numbers first
                 String deletePhoneSql = "DELETE FROM Client_phone_numbers WHERE Client_ID = ?";
                 try (PreparedStatement ps0 = conn.prepareStatement(deletePhoneSql)) {
                     ps0.setInt(1, clientId);
                     ps0.executeUpdate();
                 }
-
-                // If you didn't set ON DELETE CASCADE for Reservations and Feedback in SQL Server,
-                // you must add those DELETE queries here as well, exactly like the phone numbers.
-
                 String deleteClientSql = "DELETE FROM Client WHERE Client_Id = ?";
                 try (PreparedStatement ps1 = conn.prepareStatement(deleteClientSql)) {
                     ps1.setInt(1, clientId);
                     ps1.executeUpdate();
                 }
-
                 conn.commit();
 
                 Platform.runLater(() -> {
                     ClientIdField.clear();
-                    loadTableData(); // FIXED: Load data AFTER successful delete
+                    loadTableData();
                 });
 
             } catch (SQLException e) {
@@ -251,8 +261,6 @@ public class ClientManagementController {
 
                     clientRows.add(new ClientRow(clientId, clientName, clientEmail, clientPhone, loyaltyPoints));
                 }
-
-                // FIXED: Update UI only ONCE after loop finishes
                 Platform.runLater(() -> {
                     clientsTable.setItems(clientRows);
                 });
@@ -264,6 +272,8 @@ public class ClientManagementController {
         dbThread.start();
     }
 
+
+    // NAVIGATION
     @FXML
     public void handleDashboard(ActionEvent actionEvent) {
         SceneSwitcher sceneSwitcher = new SceneSwitcher();
@@ -271,10 +281,16 @@ public class ClientManagementController {
     }
 
     @FXML
+    public void handleAddTrip(ActionEvent event) {
+        SceneSwitcher sceneSwitcher = new SceneSwitcher();
+        sceneSwitcher.switchPage(event,"/org/example/busfinder/ManageTrips-View.fxml");
+    }
+
+    @FXML
     public void handleLogout(ActionEvent event) {
+        Util.UserSession.cleanUserSession();
         SceneSwitcher sceneSwitcher = new SceneSwitcher();
         sceneSwitcher.switchPage(event, "/org/example/busfinder/Login-View.fxml");
-        Util.UserSession.cleanUserSession();
     }
 
 

@@ -27,7 +27,7 @@
         <VBox spacing="5.0" VBox.vgrow="ALWAYS">
             <Button maxWidth="Infinity" styleClass="nav-btn, nav-btn-active" text="⊞   Dashboard" />
             <Button maxWidth="Infinity" onAction="#handleAddClient" styleClass="nav-btn" text="👥   Clients" />
-            <Button maxWidth="Infinity" styleClass="nav-btn" text="🚌   Trips" />
+            <Button maxWidth="Infinity" onAction="#handleAddTrip" styleClass="nav-btn" text="🚌   Trips" />
             <Button maxWidth="Infinity" styleClass="nav-btn" text="📅   Reservations" />
             <Button maxWidth="Infinity" styleClass="nav-btn" text="🔍   View Trips" />
             <Button maxWidth="Infinity" styleClass="nav-btn" text="💬   Feedback" />

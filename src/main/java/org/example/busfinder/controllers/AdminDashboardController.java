@@ -33,28 +33,14 @@ public class AdminDashboardController {
 
     @FXML
     public void initialize() {
-        // Map the columns to the exact variable names inside the TripRow class below
         colId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().tripId()));
         colRoute.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().route()));
         colTime.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().time()));
         colStatus.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().status()));
         colSeats.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().seats()));
 
-        // Load the data from the database
         loadTableData();
         loadStats();
-    }
-    @FXML
-    public void handleLogout(ActionEvent event) {
-        SceneSwitcher sceneSwitcher = new SceneSwitcher();
-        sceneSwitcher.switchPage(event,"/org/example/busfinder/Login-View.fxml");
-        Util.UserSession.cleanUserSession();
-    }
-
-    @FXML
-    public void handleAddClient(ActionEvent event) {
-        SceneSwitcher sceneSwitcher = new SceneSwitcher();
-        sceneSwitcher.switchPage(event,"/org/example/busfinder/ManageClient-View.fxml");
     }
 
     private void loadStats(){
@@ -90,11 +76,9 @@ public class AdminDashboardController {
     }
 
     private void loadTableData() {
-        // Run database query on a background thread to prevent the UI from freezing
         Thread dbThread = new Thread(() -> {
             ObservableList<TripRow> tripList = FXCollections.observableArrayList();
 
-            // 3. The SQL Query: This does a lot of heavy lifting to match your UI perfectly!
             String query = "SELECT " +
                     "T.Trip_ID, " +
             "(SELECT TOP 1 S.City FROM Route_Stop RS JOIN Stop S ON RS.Stop_ID = S.Stop_ID WHERE RS.Route_ID = T.Route_ID ORDER BY RS.[order] ASC) + ' -> ' + " +
@@ -109,20 +93,15 @@ public class AdminDashboardController {
                  PreparedStatement pstmt = conn.prepareStatement(query);
                  ResultSet rs = pstmt.executeQuery()) {
 
-                // Loop through every row the database gives us
                 while (rs.next()) {
-                    // Format the ID so '1' becomes 'T001' to match your design
                     String id = String.valueOf(rs.getInt("Trip_ID"));
                     String route = rs.getString("RoutePath");
                     String time = rs.getString("DepartureTime");
                     String status = rs.getString("Trip_Status");
                     String seats = rs.getString("SeatInfo");
 
-                    // Create a new TripRow object and add it to our list
                     tripList.add(new TripRow(id, route, time, status, seats));
                 }
-
-                // Push the data to the TableView safely on the UI Thread
                 Platform.runLater(() -> tripsTable.setItems(tripList));
 
             } catch (SQLException e) {
@@ -130,9 +109,30 @@ public class AdminDashboardController {
                 e.printStackTrace();
             }
         });
-
         dbThread.start();
     }
+
+
+    // NAVIGATION
+    @FXML
+    public void handleLogout(ActionEvent event) {
+        Util.UserSession.cleanUserSession();
+        SceneSwitcher sceneSwitcher = new SceneSwitcher();
+        sceneSwitcher.switchPage(event,"/org/example/busfinder/Login-View.fxml");
+    }
+
+    @FXML
+    public void handleAddClient(ActionEvent event) {
+        SceneSwitcher sceneSwitcher = new SceneSwitcher();
+        sceneSwitcher.switchPage(event,"/org/example/busfinder/ManageClient-View.fxml");
+    }
+
+    @FXML
+    public void handleAddTrip(ActionEvent event) {
+        SceneSwitcher sceneSwitcher = new SceneSwitcher();
+        sceneSwitcher.switchPage(event,"/org/example/busfinder/ManageTrips-View.fxml");
+    }
+
 
 
 }

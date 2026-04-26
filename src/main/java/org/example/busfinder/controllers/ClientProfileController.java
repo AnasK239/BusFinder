@@ -30,15 +30,16 @@ public class ClientProfileController {
     }
 
     @FXML
-    public void handleEditProfile(ActionEvent event) {
-        // Logic to make TextFields editable,
+    public void handleLogout(ActionEvent event) {
+        Util.UserSession.cleanUserSession();
+        SceneSwitcher sceneSwitcher = new SceneSwitcher();
+        sceneSwitcher.switchPage(event, "/org/example/busfinder/Login-View.fxml");
     }
 
     @FXML
-    public void handleLogout(ActionEvent event) {
+    public void handleBookTrip(ActionEvent event) {
         SceneSwitcher sceneSwitcher = new SceneSwitcher();
-        sceneSwitcher.switchPage(event, "/org/example/busfinder/Login-View.fxml");
-        Util.UserSession.cleanUserSession();
+        sceneSwitcher.switchPage(event, "/org/example/busfinder/ClientBookTrip-View.fxml");
     }
 
     private void loadProfile() {
@@ -56,7 +57,6 @@ public class ClientProfileController {
                     "WHERE\n" +
                     "\tC.Client_ID = ?";
 
-            // Added pstmt to the try-with-resources block so it auto-closes
             try (Connection conn = DatabaseHelper.getConnection();
                  PreparedStatement pstmt = conn.prepareStatement(Query)) {
 
